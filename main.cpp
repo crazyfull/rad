@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     bool isSend;
     //set config
-    clsRadiusClient::SetServerAddress("173.244.196.180");
+    clsRadiusClient::SetServerAddress("127.0.0.1");
     clsRadiusClient::SetCurrentServerAddress("192.168.1.250");
     clsRadiusClient::SetServerAuthPort(1812);
     clsRadiusClient::SetServerAccountPort(1812);
@@ -21,12 +21,11 @@ int main(int argc, char *argv[])
 
     //AUTHENTICATION
     /**/
-AUTHENTICATION ret;
+    AUTHENTICATION ret;
     for(int i = 0; i < 10;i++){
-        ret = clsRadiusClient::Authentication("iruser308936", "123456");
+        ret = clsRadiusClient::Authentication("test31", "1234");
         if(ret == AUTHENTICATION_FAILED){
             printf("AUTHENTICATION FAILED\n");
-            //return 1;
         }
     }
 
