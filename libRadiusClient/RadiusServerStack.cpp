@@ -15,6 +15,7 @@
 #else
     #include <unistd.h>
     #include <sys/socket.h>
+    #include <sys/ioctl.h>
 #endif
 #if HAVE_SYS_IOCTL_H
     #include <sys/ioctl.h>
@@ -23,7 +24,14 @@
     #include <sys/filio.h>
 #endif        
 
+#ifndef MSG_NOSIGNAL
+    #define HAVE_SOCKLEN_T 0
+#else
+    #define HAVE_SOCKLEN_T 1
+#endif
+
 #include "RadiusServerStack.h" 
+
 
 
 // ---------------------------

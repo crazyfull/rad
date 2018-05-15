@@ -16,13 +16,17 @@
 #include <sys/types.h>
 #ifdef _MSC_VER
 #include <winsock2.h>
+
 #ifndef MSG_NOSIGNAL
-# define MSG_NOSIGNAL 0
+    #define MSG_NOSIGNAL 0
 #endif
-#define HAVE_SOCKLEN_T 0
+    #define HAVE_SOCKLEN_T 0
 #else
-#include <sys/socket.h>
-#define HAVE_SOCKLEN_T 1
+    #include <unistd.h>
+    #include <sys/socket.h>
+    #include <sys/ioctl.h>
+    //#include <sys/filio.h>
+    #define HAVE_SOCKLEN_T 1
 #endif
 
 #include <string.h>
@@ -116,7 +120,7 @@ RadiusPacket * RadiusClientConnection::sendPacket(RadiusPacket &p_packet, bool n
             return NULL;
         }
 
-        printf("sendPacket, socket(%d)\n", m_stack->m_socket);
+        //printf("sendPacket, socket(%d)\n", m_stack->m_socket);
 
         int l_numBytesSent = sendto(m_stack->m_socket, (char *)p_packet.getRawData(), p_packet.getLength(), MSG_NOSIGNAL, (struct sockaddr*)&l_address,  l_addrLen);
 

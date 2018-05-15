@@ -7,12 +7,12 @@ int main(int argc, char *argv[])
 
     bool isSend;
     //set config
-    clsRadiusClient::SetServerAddress("127.0.0.1");
+    clsRadiusClient::SetServerAddress("173.244.196.180");
     clsRadiusClient::SetCurrentServerAddress("192.168.1.250");
     clsRadiusClient::SetServerAuthPort(1812);
     clsRadiusClient::SetServerAccountPort(1812);
-    clsRadiusClient::SetSecret("moji");
-    clsRadiusClient::SetAccountingTimeOut(4, 1);
+    clsRadiusClient::SetSecret("testing123");
+    clsRadiusClient::SetAccountingTimeOut(6, 1);
     clsRadiusClient::SetAuthenticationTimeOut(3, 1);
 
     //start radius
@@ -21,12 +21,16 @@ int main(int argc, char *argv[])
 
     //AUTHENTICATION
     /**/
-    AUTHENTICATION ret = clsRadiusClient::Authentication("nemo", "gooz");
-    if(ret == AUTHENTICATION_FAILED){
-        printf("AUTHENTICATION FAILED\n");
-        return 1;
+AUTHENTICATION ret;
+    for(int i = 0; i < 10;i++){
+        ret = clsRadiusClient::Authentication("iruser308936", "123456");
+        if(ret == AUTHENTICATION_FAILED){
+            printf("AUTHENTICATION FAILED\n");
+            //return 1;
+        }
     }
 
+return 1;
 
     if(ret == AUTHENTICATION_PENDING){
         printf("AUTHENTICATION PENDING\n");
@@ -48,10 +52,12 @@ int main(int argc, char *argv[])
     }
 
     //start accounting
+    /*
     isSend = clsRadiusClient::Accounting_START("test31", "180.24.54.12", 600);
     if(isSend){
         printf("Successfully Accounting_START\n");
     }
+    */
 
     //stop accounting
     /*
